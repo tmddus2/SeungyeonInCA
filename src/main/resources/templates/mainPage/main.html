@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Load Bootstrap -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css">
+    <style>
+        .container{
+            margin: 0 auto;
+            text-align: center;
+
+        }
+        .card{
+            text-align: left;
+            margin: 7%;
+        }
+        .text{
+            margin: 3%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1 class="text">
+        Hello world!
+    </h1>
+    <h3 class="text">hello world</h3>
+
+    <div class="row">
+        <tr th:each="post : ${posts}">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${post.title}">title</h5>
+                        <p class="card-text" th:text="${post.content}">content</p>
+                        <a th:href="@{/post/{postId}(postId=${post.url})}" class="btn btn-primary" th:text="${post.url}">url</a>
+                    </div>
+                </div>
+            </div>
+        </tr>
+    </div>
+</div>
+</body>
+</html>
+
