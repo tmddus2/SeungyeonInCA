@@ -24,7 +24,11 @@
     <h1 class="text">
         Hello world!
     </h1>
-    <h3 class="text">hello world</h3>
+    <div>
+        <h3 class="text">hello world</h3>
+        <button type="button" class="btn btn-outline-success" th:onclick="|location.href='@{/sign-up}'|">Sign Up</button>
+        <button type="button" class="btn btn-outline-success" th:onclick="|location.href='@{/sign-in}'|">Sign In</button>
+    </div>
 
     <div class="row">
         <tr th:each="post : ${posts}">
@@ -33,11 +37,14 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${post.title}">title</h5>
                         <p class="card-text" th:text="${post.content}">content</p>
-                        <a th:href="@{/post/{postId}(postId=${post.url})}" class="btn btn-primary" th:text="${post.url}">url</a>
+                        <a th:href="@{/post/{postId}(postId=${post.url})}" class="btn btn-outline-warning" th:text="${post.url}">url</a>
                     </div>
                 </div>
             </div>
         </tr>
+    </div>
+    <div>
+        <button type="button" class="btn btn-outline-success" th:onclick="|location.href='@{/}'|">Add post</button>
     </div>
 </div>
 </body>

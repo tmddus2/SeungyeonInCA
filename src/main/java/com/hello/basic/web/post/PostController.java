@@ -14,6 +14,6 @@ public class PostController {
     @GetMapping("/{postId}")
     public String posts(Model model, @PathVariable String postId) {
         model.addAttribute("postId", postId);
-        return "travelPage/travel";
+        return "travelPage/home";
     }
 }
