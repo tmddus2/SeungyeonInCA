@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Cost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String title;
 

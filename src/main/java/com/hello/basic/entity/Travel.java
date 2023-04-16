@@ -8,7 +8,7 @@ import java.util.List;
 public class Travel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     private User user;
