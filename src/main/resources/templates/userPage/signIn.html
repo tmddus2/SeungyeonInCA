@@ -20,17 +20,17 @@
     <h1 class="text">
         Hello world!
     </h1>
-    <form>
+    <form th:action="@{/sign-in}" th:object="${signInDto}" method="post">
         <!-- Email input -->
         <div class="form-outline mb-4">
-            <input type="email" id="form2Example1" class="form-control" />
-            <label class="form-label" for="form2Example1">Email address</label>
+            <input type="email" th:field="*{email}" class="form-control" />
+            <label class="form-label">Email address</label>
         </div>
 
         <!-- Password input -->
         <div class="form-outline mb-4">
-            <input type="password" id="form2Example2" class="form-control" />
-            <label class="form-label" for="form2Example2">Password</label>
+            <input type="password" th:field="*{password}" class="form-control" />
+            <label class="form-label">Password</label>
         </div>
 
         <!-- 2 column grid layout for inline styling -->
@@ -50,7 +50,7 @@
         </div>
 
         <!-- Submit button -->
-        <button type="button" class="btn btn-outline-primary btn-block mb-4">Sign In</button>
+        <button type="submit" class="btn btn-outline-primary btn-block mb-4">Sign In</button>
 
         <!-- Register buttons -->
         <div class="text-center">
