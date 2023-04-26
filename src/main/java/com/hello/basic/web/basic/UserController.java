@@ -2,18 +2,21 @@ package com.hello.basic.web.basic;
 
 import com.hello.basic.dto.SignInDto;
 import com.hello.basic.dto.SignUpDto;
+import com.hello.basic.dto.SignUpResponseDto;
+import com.hello.basic.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class UserController {
+
+    private final UserService userService;
 
     @GetMapping("/sign-in")
     public String signIn(Model model){
@@ -27,10 +30,13 @@ public class UserController {
         return "userPage/signUp";
     }
 
+    @ResponseBody
     @PostMapping("/sign-up")
-    public String registerUser(@ModelAttribute("signUpDto") SignUpDto signUpDto) {
-        System.out.println("signUpDto = " + signUpDto.toString());
-        return "redirect:/sign-in";
+    public SignUpResponseDto registerUser(@RequestBody SignUpDto signUpDto) {
+        log.info("sign up controller");
+        SignUpResponseDto signUpResponseDto = userService.signUp(signUpDto);
+        //return "redirect:/sign-in";
+        return signUpResponseDto;
     }
 
     @PostMapping("/sign-in")
