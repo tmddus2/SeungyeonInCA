@@ -52,6 +52,7 @@ public class UserController {
         if (signInResponseDto.isSuccess()) {
             HttpSession session = request.getSession();
             session.setAttribute(SessionConst.SESSION_ID, signInResponseDto.getUser().getId());
+            log.info(session.getId());
             return new ResponseEntity<>("login success", HttpStatus.OK);
         }
 

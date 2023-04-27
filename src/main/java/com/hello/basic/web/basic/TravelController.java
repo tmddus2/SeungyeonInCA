@@ -1,7 +1,10 @@
 package com.hello.basic.web.basic;
 
 import com.hello.basic.dto.TravelDto;
+import com.hello.basic.dto.UserDto;
 import com.hello.basic.service.TravelService;
+import com.hello.basic.service.UserService;
+import com.hello.basic.web.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -20,11 +25,15 @@ import java.util.UUID;
 public class TravelController {
 
     private final TravelService travelService;
+    private final UserService userService;
 
     @ResponseBody
     @GetMapping()
-    public String getRequest() {
-        return "hello";
+    public UserDto getRequest(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Long id = (Long) session.getAttribute(SessionConst.SESSION_ID);
+        UserDto user = userService.findUserById(id);
+        return user;
     }
 
     @GetMapping("/{postId}/place")

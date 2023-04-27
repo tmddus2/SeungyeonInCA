@@ -1,9 +1,6 @@
 package com.hello.basic.service;
 
-import com.hello.basic.dto.SignInDto;
-import com.hello.basic.dto.SignInResponseDto;
-import com.hello.basic.dto.SignUpDto;
-import com.hello.basic.dto.SignUpResponseDto;
+import com.hello.basic.dto.*;
 import com.hello.basic.entity.User;
 import com.hello.basic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -55,6 +52,22 @@ public class UserService {
             return SignInResponseDto.builder()
                     .isSuccess(false)
                     .user(null)
+                    .build();
+        }
+    }
+
+    public UserDto findUserById(Long id) {
+        try {
+            User user = userRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 user가 없습니다."));
+            return UserDto.builder()
+                    .id(user.getId())
+                    .email(user.getEmail())
+                    .build();
+        } catch (Exception e) {
+            return UserDto.builder()
+                    .id(null)
+                    .email(null)
                     .build();
         }
     }
