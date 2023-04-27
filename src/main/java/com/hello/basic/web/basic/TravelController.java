@@ -15,25 +15,31 @@ import java.util.UUID;
 
 @Slf4j
 @Controller
-@RequestMapping("/")
+@RequestMapping("/post")
 @RequiredArgsConstructor
 public class TravelController {
 
     private final TravelService travelService;
 
-    @GetMapping("/post/{postId}/place")
+    @ResponseBody
+    @GetMapping()
+    public String getRequest() {
+        return "hello";
+    }
+
+    @GetMapping("/{postId}/place")
     public String getPlace(@PathVariable String postId, Model model) {
         model.addAttribute("postId", postId);
         return "travelPage/place";
     }
 
-    @GetMapping("/post/{postId}/photo")
+    @GetMapping("/{postId}/photo")
     public String getPhoto(@PathVariable String postId, Model model) {
         model.addAttribute("postId", postId);
         return "travelPage/photo";
     }
 
-    @GetMapping("/post/{postId}/cost")
+    @GetMapping("/{postId}/cost")
     public String getCost(@PathVariable String postId, Model model) {
         model.addAttribute("postId", postId);
         return "travelPage/cost";

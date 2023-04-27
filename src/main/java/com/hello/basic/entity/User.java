@@ -1,12 +1,16 @@
 package com.hello.basic.entity;
 
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +29,4 @@ public class User {
         this.password = password;
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
 }

@@ -1,5 +1,7 @@
 package com.hello.basic.service;
 
+import com.hello.basic.dto.SignInDto;
+import com.hello.basic.dto.SignInResponseDto;
 import com.hello.basic.dto.SignUpDto;
 import com.hello.basic.dto.SignUpResponseDto;
 import com.hello.basic.entity.User;
@@ -7,6 +9,8 @@ import com.hello.basic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,5 +40,22 @@ public class UserService {
                     .build();
         }
 
+    }
+
+    public SignInResponseDto signIn(SignInDto signInDto) {
+        try {
+            User user = userRepository.findByEmail(signInDto.getEmail())
+                    .orElseThrow(() -> new IllegalArgumentException("해당 user가 없습니다."));
+
+            return SignInResponseDto.builder()
+                    .isSuccess(true)
+                    .user(user)
+                    .build();
+        } catch (Exception e) {
+            return SignInResponseDto.builder()
+                    .isSuccess(false)
+                    .user(null)
+                    .build();
+        }
     }
 }
