@@ -2,40 +2,37 @@ package com.hello.basic.web.basic;
 
 import com.hello.basic.dto.SignInDto;
 import com.hello.basic.dto.SignUpDto;
+import com.hello.basic.dto.SignUpResponseDto;
+import com.hello.basic.service.UserService;
+import com.hello.basic.web.jwt.JwtToken;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@Slf4j
+@RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class UserController {
 
-    @GetMapping("/sign-in")
-    public String signIn(Model model){
-        model.addAttribute("signInDto", new SignInDto());
-        return "userPage/signIn";
-    }
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    @GetMapping("/sign-up")
-    public String signUp(Model model){
-        model.addAttribute("signUpDto", new SignUpDto());
-        return "userPage/signUp";
+    @PostMapping("/sign-in")
+    public ResponseEntity<JwtToken> signIn(@RequestBody SignInDto signInDto){
+        JwtToken token = userService.login(
+                signInDto.getEmail(),
+                passwordEncoder.encode(signInDto.getPassword())
+        );
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/sign-up")
-    public String registerUser(@ModelAttribute("signUpDto") SignUpDto signUpDto) {
-        System.out.println("signUpDto = " + signUpDto.toString());
-        return "redirect:/sign-in";
-    }
-
-    @PostMapping("/sign-in")
-    public String login(@ModelAttribute("signInDto") SignInDto signInDto) {
-        System.out.println("signInDto = " + signInDto);
-        return "redirect:/";
+    public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpDto signUpDto){
+        SignUpResponseDto signUpResponseDto = userService.register(signUpDto);
+        return ResponseEntity.ok(signUpResponseDto);
     }
 }

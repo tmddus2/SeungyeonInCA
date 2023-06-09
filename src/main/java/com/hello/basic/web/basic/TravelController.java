@@ -4,6 +4,7 @@ import com.hello.basic.dto.TravelDto;
 import com.hello.basic.service.TravelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,9 +41,10 @@ public class TravelController {
     }
 
     @GetMapping("/post")
-    public String addPost(Model model) {
-        model.addAttribute("travel", new TravelDto());
-        return "travelPage/addTravel";
+    public ResponseEntity addPost(Model model) {
+        //model.addAttribute("travel", new TravelDto());
+        //return "travelPage/addTravel";
+        return ResponseEntity.ok("success");
     }
 
     @PostMapping("/post")
