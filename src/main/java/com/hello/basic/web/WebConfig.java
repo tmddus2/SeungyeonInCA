@@ -42,6 +42,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor(jwtTokenProvider))
                 .order(2)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/sign-in", "/sign-out", "/sign-up", "/login/*");
+                .excludePathPatterns("/", "/sign-in", "/sign-out", "/sign-up", "/login/**");
     }
 }

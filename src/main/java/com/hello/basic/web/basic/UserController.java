@@ -23,7 +23,6 @@ public class UserController {
 
     @GetMapping("/sign-up")
     public String signUp(Model model){
-        model.addAttribute("signUpDto", new SignUpDto());
         return "userPage/signUp";
     }
 
