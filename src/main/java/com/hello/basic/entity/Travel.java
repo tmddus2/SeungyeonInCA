@@ -1,10 +1,13 @@
 package com.hello.basic.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
 public class Travel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
