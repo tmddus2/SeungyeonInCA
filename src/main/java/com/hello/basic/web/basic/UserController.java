@@ -37,35 +37,30 @@ public class UserController {
         return "userPage/signUp";
     }
 
-    @ResponseBody
     @PostMapping("/sign-up")
-    public SignUpResponseDto registerUser(@RequestBody SignUpDto signUpDto) {
-        log.info("sign up controller");
+    public String registerUser(@RequestBody SignUpDto signUpDto) {
         SignUpResponseDto signUpResponseDto = userService.signUp(signUpDto);
-        return signUpResponseDto;
+        return "mainPage/main";
     }
 
-    @ResponseBody
     @PostMapping("/sign-in")
-    public ResponseEntity<String> login(@RequestBody SignInDto signInDto, HttpServletRequest request) {
+    public String login(SignInDto signInDto, HttpServletRequest request) {
         SignInResponseDto signInResponseDto = userService.signIn(signInDto);
         if (signInResponseDto.isSuccess()) {
             HttpSession session = request.getSession();
             session.setAttribute(SessionConst.SESSION_ID, signInResponseDto.getUser().getId());
-            log.info(session.getId());
-            return new ResponseEntity<>("login success", HttpStatus.OK);
+            return "redirect:/";
         }
 
-        return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        return "redirect:"+"userPage/signIn";
     }
 
     @PostMapping("/sign-out")
-    public ResponseEntity<String> logout(HttpServletRequest request) {
+    public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
-            return new ResponseEntity<>("logout", HttpStatus.OK);
         }
-        return new ResponseEntity<>("no session", HttpStatus.OK);
+        return "redirect:/";
     }
 }

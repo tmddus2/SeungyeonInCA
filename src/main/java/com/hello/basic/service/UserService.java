@@ -1,18 +1,25 @@
 package com.hello.basic.service;
 
 import com.hello.basic.dto.*;
+import com.hello.basic.entity.Post;
+import com.hello.basic.entity.Travel;
 import com.hello.basic.entity.User;
+import com.hello.basic.repository.PostRepository;
+import com.hello.basic.repository.TravelRepository;
 import com.hello.basic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
     private final PasswordEncoder passwordEncoder;
 
     public SignUpResponseDto signUp(SignUpDto signUpDto) {
@@ -70,5 +77,22 @@ public class UserService {
                     .email(null)
                     .build();
         }
+    }
+
+    public List<PostDto> getPosts(Long userId) {
+        List<Post> posts = postRepository.findAllByUser_Id(userId);
+        List<PostDto> postDtos = new ArrayList<>();
+
+        for(Post post : posts) {
+            postDtos.add(
+                    PostDto.builder()
+                            .id(post.getId())
+                            .title(post.getTitle())
+                            .content(post.getContent())
+                            .build()
+            );
+        }
+
+        return postDtos;
     }
 }
