@@ -7,5 +7,5 @@ import org.springframework.web.multipart.MultipartFile;
 public class TravelDto {
     private String name;
     private String description;
-    //private MultipartFile file;
+    private MultipartFile file;
 }
