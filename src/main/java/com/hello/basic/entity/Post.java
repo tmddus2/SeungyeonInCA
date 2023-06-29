@@ -18,13 +18,20 @@ public class Post {
 
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private String picture;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @Builder
-    public Post(String title, String content, User user) {
+    public Post(String title, String content, Long userId, String picture) {
         this.title = title;
         this.content = content;
-        this.user = user;
+        this.userId = userId;
+        this.picture = picture;
     }
 }

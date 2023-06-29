@@ -23,6 +23,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Travel> travels = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
+
     @Builder
     public User(String email, String password) {
         this.email = email;
