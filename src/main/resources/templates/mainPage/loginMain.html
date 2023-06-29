@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Load Bootstrap -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css">
+    <style>
+        .container{
+            margin: 0 auto;
+            text-align: center;
+
+        }
+        .card{
+            text-align: left;
+            margin: 7%;
+        }
+        .text{
+            margin: 3%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1 class="text">
+        Hello world!
+    </h1>
+    <div>
+        <h3 class="text" th:text="|${user.email} 님! 안녕하세요|">hello world</h3>
+        <form th:action="@{/sign-out}" method="post">
+            <button type="submit" class="btn btn-outline-success">Sign Out</button>
+        </form>
+    </div>
+
+    <div class="row">
+        <tr th:each="post : ${posts}">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${post.title}">title</h5>
+                        <p class="card-text" th:text="${post.content}">content</p>
+                    </div>
+                </div>
+            </div>
+        </tr>
+    </div>
+    <div>
+        <button type="button" class="btn btn-outline-success" th:onclick="|location.href='@{/post}'|" style="margin-bottom: 5%">Add post</button>
+    </div>
+</div>
+</body>
+</html>
+
