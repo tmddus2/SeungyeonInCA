@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -32,6 +33,22 @@ public class PostService {
                     .picture(savedPost.getPicture())
                     .build();
         } catch (Exception e) {
+            log.info(e.getMessage());
+            return null;
+        }
+    }
+
+    public PostDto findPostById(Long id) {
+        try {
+            Post post = postRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 Post가 없습니다."));
+            return PostDto.builder()
+                    .id(post.getId())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .picture(post.getPicture())
+                    .build();
+        } catch (IllegalArgumentException e) {
             log.info(e.getMessage());
             return null;
         }

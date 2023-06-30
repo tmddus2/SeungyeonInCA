@@ -36,7 +36,7 @@
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${post.title}">title</h5>
+                        <h5 class="card-title" th:text="${post.title}" th:onclick="|location.href='@{/post/{postId}(postId=${post.id})}'|">title</h5>
                         <p class="card-text" th:text="${post.content}">content</p>
                     </div>
                 </div>
