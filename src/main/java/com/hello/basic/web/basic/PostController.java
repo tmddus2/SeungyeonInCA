@@ -36,10 +36,11 @@ public class PostController {
         return "redirect:/";
     }
 
-    @ResponseBody
     @GetMapping("/{postId}")
-    public String getPostPage(@PathVariable Long postId) {
-        return postService.findPostById(postId).toString();
+    public String getPostPage(@PathVariable Long postId, Model model) {
+        PostDto post = postService.findPostById(postId);
+        model.addAttribute("post", post);
+        return "travelPage/home";
     }
 
 }

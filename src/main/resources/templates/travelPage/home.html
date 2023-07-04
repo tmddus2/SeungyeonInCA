@@ -12,9 +12,10 @@
         }
         .background {
             width: 100vw;
-            height: 100vh;
+            height: 75vh;
             background-repeat: no-repeat;
             background-size: cover;
+            background-position: center;
         }
         .mask {
             width: 100%;
@@ -24,14 +25,14 @@
         }
 
     </style>
-    <nav th:insert="~{fragment/navigator :: navigator(${postId})}"></nav>
+    <nav th:insert="~{fragment/navigator :: navigator(${post.id})}"></nav>
     <!-- Background image -->
-    <div class="background" th:style="'background-image:url(' + ${file} + ');'">
+    <div class="background" th:style="'background-image:url(' + ${post.picture} + ');'">
         <div class="mask">
             <div class="d-flex justify-content-center align-items-center h-100">
                 <div class="text-white">
-                    <h1 class="mb-3" th:text="${name}">Heading</h1>
-                    <h4 class="mb-3" th:text="${description}">Subheading</h4>
+                    <h1 class="mb-3" th:text="${post.title}">Heading</h1>
+                    <h4 class="mb-3" th:text="${post.content}">Subheading</h4>
                 </div>
             </div>
         </div>
