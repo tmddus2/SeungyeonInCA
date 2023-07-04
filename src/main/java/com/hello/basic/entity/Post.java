@@ -27,11 +27,19 @@ public class Post {
     @Column(name = "user_id")
     private Long userId;
 
+    @OneToOne
+    @JoinColumn(name = "travel_id", insertable = false, updatable = false)
+    private Travel travel;
+
+    @Column(name = "travel_id")
+    private Long travelId;
+
     @Builder
-    public Post(String title, String content, Long userId, String picture) {
+    public Post(String title, String content, Long userId, String picture, Long travelId) {
         this.title = title;
         this.content = content;
         this.userId = userId;
         this.picture = picture;
+        this.travelId = travelId;
     }
 }

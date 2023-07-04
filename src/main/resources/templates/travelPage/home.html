@@ -25,7 +25,7 @@
         }
 
     </style>
-    <nav th:insert="~{fragment/navigator :: navigator(${post.id})}"></nav>
+    <nav th:insert="~{fragment/navigator :: navigator(${post.travelId})}"></nav>
     <!-- Background image -->
     <div class="background" th:style="'background-image:url(' + ${post.picture} + ');'">
         <div class="mask">

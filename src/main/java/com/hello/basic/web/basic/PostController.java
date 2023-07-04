@@ -3,6 +3,7 @@ package com.hello.basic.web.basic;
 import com.hello.basic.dto.PostDto;
 import com.hello.basic.dto.TravelDto;
 import com.hello.basic.service.PostService;
+import com.hello.basic.service.TravelService;
 import com.hello.basic.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostService postService;
+    private final TravelService travelService;
 
     @GetMapping
     public String getAddPost(Model model) {
